@@ -25,8 +25,6 @@ function App() {
 
   // =========================================
 
-
-
   return (
 
     <div className="App">
@@ -46,7 +44,7 @@ function App() {
 
             <div className='divNota'>
 
-              <button className='btnCal'>calcular</button>
+              <button className='btnCal'>Calcular</button>
 
               <li key={f.id} className='line'>
                 <p>{f.data}</p>
@@ -60,7 +58,7 @@ function App() {
                 <p>{f.taxa}</p>
               </li>
 
-              <p>resultado</p>
+              <p>Resultado</p>
 
             </div>
 
