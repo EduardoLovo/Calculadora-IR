@@ -8,7 +8,7 @@ function App() {
   const [notas, setNotas] = useState([
     {
       id: 1,
-      data: "2022/07/03",
+      data: "2022-03-15",
       tipo: "Compra",
       preco: "100",
       quantidade: "10",
@@ -16,7 +16,7 @@ function App() {
     },
     {
       id: 2,
-      data: "2022/05/03",
+      data: "2022-03-16",
       tipo: "Venda",
       preco: "200",
       quantidade: "8",
@@ -76,6 +76,17 @@ function App() {
 
   // =========================================
 
+
+
+  const [resultado, setResultado] = useState('')
+
+
+  const handleResultadoChange = (e) => {
+    e.preventDefault();
+
+    setResultado('Resultado')
+    // }
+  }
 
 
   return (
@@ -155,7 +166,7 @@ function App() {
 
       <div className='notasView'>
 
-        <ul>
+        <ul className='acoes'>
           <div className='titulos'>
             <span>Data</span>
             <span>Tipo</span>
@@ -168,7 +179,6 @@ function App() {
 
             <div className='divNota'>
 
-              <button className='btnCal'>Calcular</button>
 
               <li key={f.id} className='line'>
                 <p>{f.data}</p>
@@ -182,12 +192,17 @@ function App() {
                 <p>{f.taxa}</p>
               </li>
 
-              <p>Resultado</p>
-
             </div>
 
           ))}
         </ul>
+
+        <button className='btnCal' onClick={handleResultadoChange}>Calcular</button>
+
+
+        {/* Resultadp ------ */}
+
+        <div className='results'>{resultado}</div>
 
       </div>
 

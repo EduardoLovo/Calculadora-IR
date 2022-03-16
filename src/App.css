@@ -8,6 +8,9 @@
 
 /* ========================================== */
 
+
+/* Formulario --------- */
+
 .divAdd {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
@@ -65,18 +68,25 @@
 
 /* ========================================== */
 
+
+/* Açoes ---------------- */
+
+.acoes {
+    margin: 0;
+    padding: 1em;
+}
 .notasView {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+    padding: 1em;
 }
 
 .titulos {
     width: 50em;
     border: 1px solid #ffffff;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    margin-left: 11.2em;
     background-color: rgba(255, 255, 255, 0.371);
 }
 
@@ -92,8 +102,8 @@
 
 .divNota {
     display: flex;
-    justify-content: space-around;
-    width: 70em;
+    justify-content: center;
+    /* width: 70em; */
     color: white;
 }
 
@@ -117,6 +127,7 @@
     border: 1px solid #d5d5d5;
     display: flex;
     justify-content: space-around;
+    align-items: center;
     
 }
 
@@ -127,3 +138,11 @@
 }
 
 /* ========================================== */
+
+
+/* Resultado ------------ */
+
+.results {
+    padding: 1em;
+    color: white;
+}
