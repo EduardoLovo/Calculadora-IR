@@ -10,16 +10,16 @@ function App() {
       id: 1,
       data: "2022-03-15",
       tipo: "Compra",
-      preco: "100",
-      quantidade: "10",
+      preco: 100,
+      quantidade: 10,
       taxa: "8.5"
     },
     {
       id: 2,
       data: "2022-03-16",
-      tipo: "Venda",
-      preco: "200",
-      quantidade: "8",
+      tipo: "Compra",
+      preco: 200,
+      quantidade: 8,
       taxa: "5.3"
     }
   ])
@@ -84,8 +84,34 @@ function App() {
   const handleResultadoChange = (e) => {
     e.preventDefault();
 
-    setResultado('Resultado')
+    // const pm = 0
+    // const qm = 0
+
+    var precoMedio = notas.reduce(getPm, 0);
+    function getPm(pm, item) {
+      return pm + (item.preco / notas.length);
+    }
+
+    var quantidadeMedia = notas.reduce(getTotal, 0);
+    function getTotal(total, item) {
+      return total + (item.quantidade / notas.length);
+    }
+
+
+    // var prejuizoAcum = notas.reduce(getPa, 0);
+    // function getPa(pa, item) {
+    //   return pa + (item.quantidade / notas.length);
     // }
+
+    setResultado(
+      <dia>
+        Preço Medio = {precoMedio} <br />
+        Quantidade Media = {quantidadeMedia} <br />
+        Prejuizo Acumulado = { }
+
+      </dia>
+    )
+
   }
 
 
@@ -101,7 +127,7 @@ function App() {
             <label>Data</label>
             <input
               type='date'
-
+              name={tipo}
               value={data}
               placeholder='um'
               onChange={handleDataChange}
