@@ -1,32 +1,34 @@
 import { useState } from 'react';
 import './App.css';
 
+
 function App() {
 
-  // Exemplos ========
+  // Exemplos ==============================
 
   const [notas, setNotas] = useState([
     {
       id: 1,
       data: "2022-03-15",
       tipo: "Compra",
-      preco: 100,
-      quantidade: 10,
-      taxa: "8.5"
+      preco: 25.90,
+      quantidade: 100,
+      taxa: 8.5
     },
+
     {
       id: 2,
       data: "2022-03-16",
-      tipo: "Compra",
-      preco: 200,
-      quantidade: 8,
-      taxa: "5.3"
+      tipo: "Venda",
+      preco: 27.39,
+      quantidade: 50,
+      taxa: 8.5
     }
   ])
 
-  // =========================================
+  // ==========================================================================================
 
-  // Formulario =======
+  // Formulario =============================
 
   const [data, setData] = useState("");
   const [tipo, setTipo] = useState("");
@@ -57,11 +59,12 @@ function App() {
     setNotas([
       ...notas,
       {
+        id: notas.length + 1,
         data: data,
         tipo: tipo,
-        preco: preco,
-        quantidade: quantidade,
-        taxa: taxa
+        preco: +preco,
+        quantidade: +quantidade,
+        taxa: +taxa
       }
     ])
 
@@ -70,56 +73,122 @@ function App() {
     setPreco('')
     setQuantidade('')
     setTaxa('')
-
   }
 
+  // ============================================================================================
 
-  // =========================================
 
-
+  // State para mostrar resultado ===============
 
   const [resultado, setResultado] = useState('')
-
 
   const handleResultadoChange = (e) => {
     e.preventDefault();
 
-    // const pm = 0
-    // const qm = 0
 
-    var precoMedio = notas.reduce(getPm, 0);
-    function getPm(pm, item) {
-      return pm + (item.preco / notas.length);
+    // Calculo para COMPRAS =====================
+    const pm = 0
+    const qm = 0
+
+    const somaPreco = []
+    const somaQuantidade = []
+
+    for (var i of notas) {
+      if (i.tipo === "Compra") {
+        const precoMedio = (pm * qm + i.preco * i.quantidade + i.taxa) / (qm + i.quantidade);
+        somaPreco.push(precoMedio)
+
+        somaQuantidade.push(i.quantidade)
+
+        var resultPreco = somaPreco.reduce(function (soma, i) {
+          const resultado = (resultPreco + i)
+          return resultado;
+        });
+
+        var resultadoQuant = somaQuantidade.reduce(function (resultadoQuant, i) {
+          const resultado2 = (resultadoQuant + i)
+          return resultado2;
+        });
+      }
     }
 
-    var quantidadeMedia = notas.reduce(getTotal, 0);
-    function getTotal(total, item) {
-      return total + (item.quantidade / notas.length);
+    var resultadoPrecoMedio = (resultPreco / somaPreco.length).toFixed(2)
+
+    // ==========================================================================================
+
+
+    // Calculo para VENDAS =====================
+    const testeVEnda = []
+
+    for (var i of notas) {
+      if (i.tipo === "Venda") {
+        testeVEnda.push(i)
+
+        var venda = () => {
+          const calculandoVenda = testeVEnda.map((fVendas) => {
+
+            var ra = (fVendas.preco - resultadoPrecoMedio) * fVendas.quantidade - fVendas.taxa;
+
+            var lk = () => {
+              var prejuizo = resultadoPrecoMedio - fVendas.preco
+              if (prejuizo < 0) {
+
+                var ir = (ra - (ra, prejuizo)) * (15 / 100);
+
+                return (
+                  <div key='prejuizo'>
+                    Prejuizo Acumulado =  0<br />
+                    RA de {ra.toFixed(2)}, incidirá IR de {ir.toFixed(2)}
+                  </div>
+                )
+
+              } else {
+
+                return (
+                  <div key='prejuizo'>
+                    Prejuizo Acumulado = {prejuizo.toFixed(2)} <br />
+                  </div>
+                )
+              }
+            }
+
+            resultadoQuant = resultadoQuant - fVendas.quantidade
+
+            return (
+              <div key='resultVenda'>
+                <h2>Resultado Venda - Linha {fVendas.id}</h2>
+                Preço Medio = {resultadoPrecoMedio} < br />
+                Quantidade Media = {resultadoQuant} <br />
+                {lk()}<br /> <br />
+              </div>)
+          })
+          return calculandoVenda
+        }
+      }
     }
-
-
-    // var prejuizoAcum = notas.reduce(getPa, 0);
-    // function getPa(pa, item) {
-    //   return pa + (item.quantidade / notas.length);
-    // }
 
     setResultado(
-      <dia>
-        Preço Medio = {precoMedio} <br />
-        Quantidade Media = {quantidadeMedia} <br />
-        Prejuizo Acumulado = { }
+      <div >
+        <h2>Resultado Compras</h2>
+        Preço Medio = {resultadoPrecoMedio} <br />
+        Quantidade Media = {resultadoQuant} <br />
+        Prejuizo Acumulado = 0 <br /> <br />
 
-      </dia>
+        {venda()}
+      </div>
+
     )
 
   }
+
+  // ==========================================================================================
 
 
   return (
 
     <div className="App">
 
-      {/* Formulario ========== */}
+      {/* Formulario ================================== */}
 
       <div className='divAdd'>
         <form className='add' onSubmit={handleSubmit}>
@@ -138,8 +207,10 @@ function App() {
             <label >Tipo</label>
             <select name="select"
               onChange={handleTipoChange}
-              value={tipo}>
-              <option placeholder='...'></option>
+              value={tipo}
+            >
+
+              <option>...</option>
               <option value="Compra">Compra</option>
               <option value="Venda" selected>Venda</option>
             </select>
@@ -185,10 +256,10 @@ function App() {
         </form>
       </div>
 
-      {/* ====================================== */}
+      {/* ========================================================================== */}
 
 
-      {/* Lista de Notas ========== */}
+      {/* Lista de Notas ================== */}
 
       <div className='notasView'>
 
@@ -201,9 +272,9 @@ function App() {
             <span>Taxa</span>
           </div>
 
-          {notas.map((f) => (
+          {notas.map((f, index) => (
 
-            <div className='divNota'>
+            <div className='divNota' key={index}>
 
 
               <li key={f.id} className='line'>
@@ -211,7 +282,7 @@ function App() {
 
                 <p>{f.tipo}</p>
 
-                <p>R$ {f.preco}</p>
+                <p>R$ {f.preco.toFixed(2)}</p>
 
                 <p>{f.quantidade}</p>
 
@@ -226,15 +297,13 @@ function App() {
         <button className='btnCal' onClick={handleResultadoChange}>Calcular</button>
 
 
-        {/* Resultadp ------ */}
+        {/* Resultado ============== */}
 
         <div className='results'>{resultado}</div>
 
       </div>
 
-      {/* ====================================== */}
-
-
+      {/* ============================================================================ */}
 
     </div>
   );

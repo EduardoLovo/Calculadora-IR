@@ -8,9 +8,9 @@ body {
   text-align: center;
   background: rgb(7,68,59);
   background: radial-gradient(circle, rgba(7,68,59,1) 0%, rgba(34,34,34,1) 100%);  /* background-size: cover;  */
-  background-size: cover;
-  background-position-x: center;
+  background-size: auto;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   height: 100vh;
 }
 
